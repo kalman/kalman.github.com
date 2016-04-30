@@ -1,0 +1,7 @@
+<pre id="note"></pre>
+<script>
+notes = ['a', 'a\u266F', 'b', 'c', 'c\u266F', 'd', 'd\u266F', 'e', 'f', 'f\u266F', 'g', 'g\u266F'];
+note = notes[Math.floor(Math.random() * notes.length)];
+document.title = note;
+document.getElementById('note').textContent = note;
+</script>
