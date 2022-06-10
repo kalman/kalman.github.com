@@ -4,7 +4,7 @@
 * GitHub: [kalman](https://github.com/kalman)
 * LinkedIn: [https://www.linkedin.com/in/btkalman/](https://www.linkedin.com/in/btkalman)
 
-Software engineer with over 12 years experience in full stack web, desktop, and mobile application development.
+Software engineer with 13 years experience in full stack web, desktop, and mobile application development.
 
 **Languages:** TypeScript, JavaScript, Python, Go, C++, C#, C, Java.
 
@@ -12,7 +12,7 @@ Software engineer with over 12 years experience in full stack web, desktop, and 
 
 ## Employment
 
-### **Salesforce** &bull; Software Engineering Architect (Quip) &bull; 2018-present
+### **Salesforce** &bull; Software Engineering Architect (Quip) &bull; 2018-2022
 
 *TypeScript, JavaScript, Python, Web, React, Node.js, AWS, iOS, Windows.*
 
