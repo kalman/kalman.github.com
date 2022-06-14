@@ -1,0 +1,69 @@
+<style>
+    :root {
+        --size: 200px;
+        --font-size: 20px;
+    }
+
+    #square {
+        width: var(--size);
+        height: var(--size);
+        text-align: center;
+        line-height: var(--size);
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: var(--font-size);
+    }
+</style>
+
+<div id="square"></div>
+
+<script>
+    const colors = [
+        ["aqua", "black"],
+        ["blue", "white"],
+        ["green", "white"],
+        ["maroon", "white"],
+        ["navy", "white"],
+        ["purple", "white"],
+        ["red", "white"],
+        ["teal", "white"],
+        ["yellow", "black"],
+    ];
+
+    function main() {
+        let hash = location.hash;
+        if (hash && hash[0] == '#') {
+            hash = hash.slice(1);
+        }
+        if (!hash) {
+            return;
+        }
+
+        const [word, size, fontSize] = hash.split(",");
+        generateSquare(
+            word,
+            parseInt(size) || undefined,
+            parseInt(fontSize) || undefined);
+
+    }
+
+    function generateSquare(word, size, fontSize) {
+        const squareDiv = document.querySelector("#square");
+        squareDiv.innerText = word;
+        const [bgColor, textColor] = colors[Math.floor(Math.random() * colors.length)];
+        squareDiv.style["background-color"] = bgColor;
+        squareDiv.style["color"] = textColor;
+
+        if (size) {
+            if (!fontSize) {
+                fontSize = Math.floor(size / 10);
+            }
+            squareDiv.style.setProperty("--size", size + "px");
+            squareDiv.style.setProperty("--font-size", fontSize + "px");
+        }
+    }
+
+    main();
+    addEventListener("hashchange", main);
+
+</script>
