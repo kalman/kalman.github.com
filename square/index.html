@@ -1,7 +1,7 @@
 <style>
     :root {
-        --size: 200px;
-        --font-size: 20px;
+        --size: 500px;
+        --font-size: 50px;
     }
 
     #square {
@@ -14,6 +14,10 @@
         font-size: var(--font-size);
     }
 </style>
+
+<head>
+    <link rel="icon" href="" type="image/x-icon">
+</head>
 
 <div id="square"></div>
 
@@ -28,39 +32,70 @@
         ["red", "white"],
         ["teal", "white"],
         ["yellow", "black"],
+        ["pink", "black"],
+        ["lime", "black"],
     ];
 
-    function main() {
+    async function main() {
         let hash = location.hash;
         if (hash && hash[0] == '#') {
             hash = hash.slice(1);
         }
-        if (!hash) {
-            return;
+
+        let [word, size, fontSize] = hash.split(",");
+
+        if (!word) {
+            word = "square";
         }
 
-        const [word, size, fontSize] = hash.split(",");
-        generateSquare(
+        await generateSquare(
             word,
             parseInt(size) || undefined,
             parseInt(fontSize) || undefined);
-
     }
 
-    function generateSquare(word, size, fontSize) {
+    async function generateSquare(word, size = 500, fontSize = 50) {
         const squareDiv = document.querySelector("#square");
-        squareDiv.innerText = word;
-        const [bgColor, textColor] = colors[Math.floor(Math.random() * colors.length)];
+        squareDiv.textContent = word;
+
+        document.querySelector("head link").href = dataURLForText("🔲", 12)
+        document.title = word;
+
+        const [bgColor, textColor] = colors[posMod(await digestMessage(word), colors.length)];
+        if (size && !fontSize) {
+            fontSize = Math.floor(size / 10);
+        }
+
         squareDiv.style["background-color"] = bgColor;
         squareDiv.style["color"] = textColor;
+        squareDiv.style.setProperty("--size", size + "px");
+        squareDiv.style.setProperty("--font-size", fontSize + "px");
+    }
 
-        if (size) {
-            if (!fontSize) {
-                fontSize = Math.floor(size / 10);
-            }
-            squareDiv.style.setProperty("--size", size + "px");
-            squareDiv.style.setProperty("--font-size", fontSize + "px");
-        }
+    async function digestMessage(message) {
+        // Based on https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#converting_a_digest_to_a_hex_string
+        // Returns an evenly distriburted number less than 2^16 based on the contents of message.
+        const msgUint8 = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray[0] + (8 << hashArray[1]);
+    }
+
+    function dataURLForText(text, size) {
+        var canvas = document.createElement("canvas");
+        canvas.setAttribute("width", size);
+        canvas.setAttribute("height", size);
+        var context = canvas.getContext("2d");
+        context.font = `${size / 1.5}px sans-serif`;
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText(text, size / 2, size / 2, size - 1);
+        return canvas.toDataURL();
+    }
+
+    function posMod(n, m) {
+        const result = n % m;
+        return result < 0 ? result + m : result;
     }
 
     main();

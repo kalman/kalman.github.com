@@ -1,23 +1,45 @@
+<head>
+    <link rel="icon" href="" type="image/x-icon">
+</head>
+
 <span id="note"></span>
 
 <style>
-body {
-  margin: 0;
-}
-#note {
-  font-family: monospace;
-  font-size: 72px;
-  line-height: 0;
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  width: 100%;
-}
+    body {
+        margin: 0;
+    }
+
+    #note {
+        font-family: monospace;
+        font-size: 72px;
+        line-height: 0;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        width: 100%;
+    }
 </style>
 
 <script>
-notes = ['a', 'a\u266F', 'b', 'c', 'c\u266F', 'd', 'd\u266F', 'e', 'f', 'f\u266F', 'g', 'g\u266F'];
-note = notes[Math.floor(Math.random() * notes.length)];
-document.title = note;
-document.getElementById('note').textContent = note;
+    function main() {
+        notes = ['a', 'a\u266F', 'b', 'c', 'c\u266F', 'd', 'd\u266F', 'e', 'f', 'f\u266F', 'g', 'g\u266F'];
+        note = notes[Math.floor(Math.random() * notes.length)];
+        document.querySelector("head link").href = dataURLForText("🎵", 12);
+        document.title = note;
+        document.getElementById('note').textContent = note;
+    }
+
+    function dataURLForText(text, size) {
+        var canvas = document.createElement("canvas");
+        canvas.setAttribute("width", size);
+        canvas.setAttribute("height", size);
+        var context = canvas.getContext("2d");
+        context.font = `${size / 1.5}px sans-serif`;
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText(text, size / 2, size / 2, size - 1);
+        return canvas.toDataURL();
+    }
+
+    main();
 </script>
