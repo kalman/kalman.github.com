@@ -1,17 +1,25 @@
 <style>
     :root {
-        --size: 500px;
-        --font-size: 50px;
+        --font-size: 80px;
+        --size: 800px;
+    }
+
+    #square-container {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
     }
 
     #square {
         width: var(--size);
         height: var(--size);
-        text-align: center;
-        line-height: var(--size);
+        display: none;
         font-family: sans-serif;
         font-weight: bold;
         font-size: var(--font-size);
+        line-height: var(--size);
+        text-align: center;
     }
 </style>
 
@@ -19,26 +27,14 @@
     <link rel="icon" href="" type="image/x-icon">
 </head>
 
-<div id="square"></div>
+<div id="square-container">
+    <div id="square"></div>
+</div>
 
 <script>
-    const colors = [
-        ["aqua", "black"],
-        ["blue", "white"],
-        ["green", "white"],
-        ["maroon", "white"],
-        ["navy", "white"],
-        ["purple", "white"],
-        ["red", "white"],
-        ["teal", "white"],
-        ["yellow", "black"],
-        ["pink", "black"],
-        ["lime", "black"],
-    ];
-
     async function main() {
         let hash = location.hash;
-        if (hash && hash[0] == '#') {
+        if (hash && hash[0] == "#") {
             hash = hash.slice(1);
         }
 
@@ -54,20 +50,34 @@
             parseInt(fontSize) || undefined);
     }
 
-    async function generateSquare(word, size = 500, fontSize = 50) {
-        const squareDiv = document.querySelector("#square");
-        squareDiv.textContent = word;
+    async function generateSquare(word, size = 800, fontSize = 0) {
+        const [h, s, l] = [
+            // 90 possible hues, multiply by 4 to get the actual hue.
+            posMod(await digestMessage(word), 90) * 4,
+            1,
+            // Small variance in the lightness, from 0.35 to 0.65.
+            (35 + posMod(await digestMessage(word + "_"), 30)) / 100,
+        ];
+        const [r, g, b] = hsl2rgb(h, s, l);
+        const bgLum = lum(r, g, b);
 
-        document.querySelector("head link").href = dataURLForText("🔲", 12)
-        document.title = word;
-
-        const [bgColor, textColor] = colors[posMod(await digestMessage(word), colors.length)];
-        if (size && !fontSize) {
-            fontSize = Math.floor(size / 10);
+        let textColor = "black";
+        if (contrastRatio(bgLum, lum(255, 255, 255)) > contrastRatio(bgLum, lum(0, 0, 0))) {
+            textColor = "white";
         }
 
-        squareDiv.style["background-color"] = bgColor;
+        if (size && !fontSize) {
+            fontSize = Math.floor(size / (word.length + 3));
+        }
+
+        // Do all DOM manipulation after the async code.
+        document.querySelector("head link").href = dataURLForText("🔲", 12)
+        document.title = word;
+        const squareDiv = document.querySelector("#square");
+        squareDiv.textContent = word;
+        squareDiv.style["background-color"] = `rgb(${r}, ${g}, ${b})`;
         squareDiv.style["color"] = textColor;
+        squareDiv.style["display"] = "block";
         squareDiv.style.setProperty("--size", size + "px");
         squareDiv.style.setProperty("--font-size", fontSize + "px");
     }
@@ -96,6 +106,34 @@
     function posMod(n, m) {
         const result = n % m;
         return result < 0 ? result + m : result;
+    }
+
+    function lum(r, g, b) {
+        // From https://dev.to/alvaromontoro/building-your-own-color-contrast-checker-4j7o.
+        var a = [r, g, b].map(function (v) {
+            v /= 255;
+            return v <= 0.03928
+                ? v / 12.92
+                : Math.pow((v + 0.055) / 1.055, 2.4);
+        });
+        return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
+
+    function contrastRatio(lum1, lum2) {
+        // From https://dev.to/alvaromontoro/building-your-own-color-contrast-checker-4j7o but fixed
+        // to be inverted (the spec says the "lighter" of the two colours, but that site interpreted
+        // that as the _lesser_ luminance value, which is wrong).
+        return lum1 > lum2
+            ? ((lum1 + 0.05) / (lum2 + 0.05))
+            : ((lum2 + 0.05) / (lum1 + 0.05))
+    }
+
+    function hsl2rgb(h, s, l) {
+        // From https://stackoverflow.com/questions/36721830/convert-hsl-to-rgb-and-hex#--stacks-s-tooltip-2s7nslmn
+        // input: h in [0,360] and s,v in [0,1] - output: r,g,b in [0,255].
+        let a = s * Math.min(l, 1 - l);
+        let f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return [f(0), f(8), f(4)].map(v => v * 255);
     }
 
     main();
