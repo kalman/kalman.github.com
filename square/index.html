@@ -1,7 +1,7 @@
 <style>
     :root {
-        --font-size: 80px;
-        --size: 800px;
+        --font-size: 100px;
+        --size: 1000px;
     }
 
     #square-container {
@@ -50,7 +50,7 @@
             parseInt(fontSize) || undefined);
     }
 
-    async function generateSquare(word, size = 800, fontSize = 0) {
+    async function generateSquare(word, size = 1000, fontSize = 0) {
         const [h, s, l] = [
             // 90 possible hues, multiply by 4 to get the actual hue.
             posMod(await digestMessage(word), 90) * 4,
