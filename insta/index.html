@@ -1,0 +1,170 @@
+<style>
+    #container {
+        --scale: 2;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+    }
+
+    #download-link {
+        font-size: 20px;
+        font-family: monospace;
+        margin-bottom: 20px;
+        text-decoration: none;
+    }
+
+    #download-link:hover {
+        text-decoration: underline;
+    }
+
+    #insta {
+        width: calc(1080px / var(--scale));
+        height: calc(1920px / var(--scale));
+        display: none;
+    }
+</style>
+
+<head>
+    <link rel="icon" href="" type="image/x-icon">
+</head>
+
+<div id="container">
+    <a id="download-link" href="">download</a>
+    <canvas id="insta"></canvas>
+</div>
+
+<script>
+    async function main() {
+        let hash = location.hash;
+        if (hash && hash[0] == "#") {
+            hash = hash.slice(1);
+        }
+
+        let [word, scale] = hash.split(",");
+
+        if (!word) {
+            word = "square";
+        }
+
+        await generateSquare(word, parseInt(scale) || undefined);
+    }
+
+    async function generateSquare(word, scale = 2) {
+        const [h, s, l] = [
+            // 90 possible hues, multiply by 4 to get the actual hue.
+            posMod(await digestMessage(word), 90) * 4,
+            1,
+            // Small variance in the lightness, from 0.35 to 0.65.
+            (35 + posMod(await digestMessage(word + "_"), 30)) / 100,
+        ];
+
+        const [r, g, b] = hsl2rgb(h, s, l);
+        const bgColor = `rgb(${r},${g},${b})`;
+        console.log(`Background color: ${bgColor} #${hex2(r)}${hex2(g)}${hex2(b)}`);
+
+        let textColor = "black";
+        const bgLum = lum(r, g, b);
+        if (contrastRatio(bgLum, lum(255, 255, 255)) > contrastRatio(bgLum, lum(0, 0, 0))) {
+            textColor = "white";
+        }
+
+        const fontSize = Math.floor(1080 / (word.length + 1));
+
+        // Do all DOM manipulation after the async code otherwise there will be a brief render
+        // in the wrong state.
+
+        document.querySelector("head link").href = dataURLForText("🌈", 12)
+        document.title = word;
+        document.documentElement.style.backgroundColor = textColor;
+
+        const downloadLink = document.querySelector("#download-link");
+        downloadLink.style.color = bgColor;
+        downloadLink.download = `${word}.png`;
+        downloadLink.addEventListener("mousedown", e => {
+            downloadLink.href = instaCanvas.toDataURL();
+        });
+
+        const instaCanvas = document.querySelector("#insta");
+        instaCanvas.style.setProperty("--scale", scale);
+        const instaCtx = instaCanvas.getContext("2d");
+
+        instaCanvas.width = 1080;
+        instaCanvas.height = 1920;
+        instaCanvas.style.display = "block";
+        // instaCanvas.style.transform = `scale(${1 / scale})`;
+
+        instaCtx.fillStyle = bgColor;
+        instaCtx.fillRect(0, 0, 1080, 1920);
+
+        instaCtx.fillStyle = textColor;
+        instaCtx.font = `bold ${fontSize}px sans-serif`;
+        instaCtx.textBaseline = "middle";
+        instaCtx.textAlign = "center";
+        instaCtx.fillText(word, 1080 / 2, 1920 / 2);
+    }
+
+    async function digestMessage(message) {
+        // Based on https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#converting_a_digest_to_a_hex_string
+        // Returns an evenly distriburted number less than 2^16 based on the contents of message.
+        const msgUint8 = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray[0] + (8 << hashArray[1]);
+    }
+
+    function dataURLForText(text, size) {
+        var canvas = document.createElement("canvas");
+        canvas.setAttribute("width", size);
+        canvas.setAttribute("height", size);
+        var context = canvas.getContext("2d");
+        context.font = `${size / 1.5}px sans-serif`;
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText(text, size / 2, size / 2, size - 1);
+        return canvas.toDataURL();
+    }
+
+    function hex2(n) {
+        const hex = n.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function posMod(n, m) {
+        const result = n % m;
+        return result < 0 ? result + m : result;
+    }
+
+    function lum(r, g, b) {
+        // From https://dev.to/alvaromontoro/building-your-own-color-contrast-checker-4j7o.
+        var a = [r, g, b].map(function (v) {
+            v /= 255;
+            return v <= 0.03928
+                ? v / 12.92
+                : Math.pow((v + 0.055) / 1.055, 2.4);
+        });
+        return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
+
+    function contrastRatio(lum1, lum2) {
+        // From https://dev.to/alvaromontoro/building-your-own-color-contrast-checker-4j7o but fixed
+        // to be inverted (the spec says the "lighter" of the two colours, but that site interpreted
+        // that as the _lesser_ luminance value, which is wrong).
+        return lum1 > lum2
+            ? ((lum1 + 0.05) / (lum2 + 0.05))
+            : ((lum2 + 0.05) / (lum1 + 0.05))
+    }
+
+    function hsl2rgb(h, s, l) {
+        // From https://stackoverflow.com/questions/36721830/convert-hsl-to-rgb-and-hex#--stacks-s-tooltip-2s7nslmn
+        // input: h in [0,360] and s,v in [0,1] - output: r,g,b in [0,255].
+        let a = s * Math.min(l, 1 - l);
+        let f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return [f(0), f(8), f(4)].map(v => Math.round(v * 255));
+    }
+
+    main();
+    addEventListener("hashchange", main);
+
+</script>
