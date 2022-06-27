@@ -42,22 +42,24 @@
             hash = hash.slice(1);
         }
 
-        let [word, scale] = hash.split(",");
+        let [word, salt, scale] = hash.split(",");
 
         if (!word) {
-            word = "square";
+            word = "insta";
         }
 
-        await generateSquare(word, parseInt(scale) || undefined);
+        await generateInsta(word, salt, parseInt(scale) || undefined);
     }
 
-    async function generateSquare(word, scale = 2) {
+    async function generateInsta(word, salt = "", scale = 1) {
+        const saltyWord = salt ? `${word}$${salt}` : word;
+
         const [h, s, l] = [
             // 90 possible hues, multiply by 4 to get the actual hue.
-            posMod(await digestMessage(word), 90) * 4,
+            posMod(await digestMessage(saltyWord), 90) * 4,
             1,
             // Small variance in the lightness, from 0.35 to 0.65.
-            (35 + posMod(await digestMessage(word + "_"), 30)) / 100,
+            (35 + posMod(await digestMessage(`${saltyWord}$lightness`), 30)) / 100,
         ];
 
         const [r, g, b] = hsl2rgb(h, s, l);
@@ -87,13 +89,12 @@
         });
 
         const instaCanvas = document.querySelector("#insta");
-        instaCanvas.style.setProperty("--scale", scale);
+        instaCanvas.style.setProperty("--scale", scale * 2);
         const instaCtx = instaCanvas.getContext("2d");
 
         instaCanvas.width = 1080;
         instaCanvas.height = 1920;
         instaCanvas.style.display = "block";
-        // instaCanvas.style.transform = `scale(${1 / scale})`;
 
         instaCtx.fillStyle = bgColor;
         instaCtx.fillRect(0, 0, 1080, 1920);
