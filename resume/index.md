@@ -62,7 +62,7 @@ NICTA was Australia's IT research centre, later renamed Data61 and merged with C
 
 ## Education
 
-### BSc Computer Science (Honours), UNSW
+### BSc Computer Science (Honours) &bull; UNSW &bull; 2005-2009
 
 * Graduated with 1st class honours.
 * My honours project was with the programming language research group of UNSW, on molecular simulations running on graphics cards.
@@ -70,4 +70,4 @@ NICTA was Australia's IT research centre, later renamed Data61 and merged with C
 ## Other
 
 * Solo developer and publisher of [Jumpling](https://apps.apple.com/us/app/jumpling/id1499419588), an iOS jump-themed game written in C# and Unity. Current high score: 1,413.
-* Participated in 4 weekend game jams (so far) in teams of 2-3 people, all in Unity. For example, my Ludum Dare submissions are [here](https://ldjam.com/events/ludum-dare/49/dungeon-economy) and [here](https://ldjam.com/events/ludum-dare/45/the-house-of-volans).
+* Participated in 5 weekend game jams (so far) solo and in teams of 2-3 people, all in Unity. For example, my Ludum Dare submissions are [here](https://ldjam.com/events/ludum-dare/49/dungeon-economy) and [here](https://ldjam.com/events/ludum-dare/45/the-house-of-volans).
