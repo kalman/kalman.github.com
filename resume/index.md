@@ -3,6 +3,7 @@
 * Email: [btkalman@gmail.com](mailto:btkalman@gmail.com)
 * GitHub: [kalman](https://github.com/kalman)
 * LinkedIn: [https://www.linkedin.com/in/btkalman/](https://www.linkedin.com/in/btkalman)
+* Based in Sydney, Australia
 
 Software engineer with 13 years experience in full stack web, desktop, and mobile application development.
 
