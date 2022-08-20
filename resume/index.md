@@ -71,4 +71,4 @@ NICTA was Australia's IT research centre, later renamed Data61 and merged with C
 ## Other
 
 * Solo developer and publisher of [Jumpling](https://apps.apple.com/us/app/jumpling/id1499419588), an iOS jump-themed game written in C# and Unity. Current high score: 1,413.
-* Participated in 5 weekend game jams (so far) solo and in teams of 2-3 people, all in Unity. For example, my Ludum Dare submissions are [here](https://ldjam.com/events/ludum-dare/49/dungeon-economy) and [here](https://ldjam.com/events/ludum-dare/45/the-house-of-volans).
+* Participated in 5 weekend game jams (so far) solo and in teams of 2-3 people, all in Unity. For example, my [Ludum Dare](https://ldjam.com/) submissions are [here](https://ldjam.com/events/ludum-dare/49/dungeon-economy), [here](https://ldjam.com/events/ludum-dare/45/the-house-of-volans), and [here](https://ldjam.com/events/ludum-dare/50/delay-the-dragon).
