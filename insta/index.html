@@ -13,13 +13,13 @@
         min-height: 100vh;
     }
 
-    #download-link {
+    #links a {
         font-size: 20px;
         font-family: monospace;
         text-decoration: none;
     }
 
-    #download-link:hover {
+    #links a:hover {
         text-decoration: underline;
     }
 
@@ -34,24 +34,18 @@
 </head>
 
 <div id="container">
-    <a id="download-link" href="">download</a>
+    <div id="links">
+        <a id="download-link" href="">download</a>
+        &nbsp;&bull;&nbsp;
+        <a id="randomise-link" href="">randomise</a>
+    </div>
     <canvas id="insta"></canvas>
 </div>
 
 <script>
     async function main() {
-        let hash = location.hash;
-        if (hash && hash[0] == "#") {
-            hash = hash.slice(1);
-        }
-
-        let [word, salt, scale] = hash.split(",");
-
-        if (!word) {
-            word = "insta";
-        }
-
-        await generateInsta(word, salt, parseInt(scale) || undefined);
+        const [word, salt, scale] = wordSaltScale();
+        await generateInsta(word, salt, scale);
     }
 
     async function generateInsta(word, salt = "", scale = 1) {
@@ -84,11 +78,27 @@
         document.title = word;
         document.documentElement.style.backgroundColor = textColor;
 
+        const links = document.querySelector("#links");
+        links.style.color = bgColor;
+        // Need to set this explicitly for the :visited state, since the webkit anchor style
+        // overrides it even though it's set on the parent... makes sense I suppose.
+        links.querySelectorAll("a").forEach(a => a.style.color = bgColor);
+
         const downloadLink = document.querySelector("#download-link");
-        downloadLink.style.color = bgColor;
         downloadLink.download = `${word}.png`;
         downloadLink.addEventListener("mousedown", e => {
             downloadLink.href = instaCanvas.toDataURL();
+        });
+
+        const randomiseLink = document.querySelector("#randomise-link");
+        randomiseLink.addEventListener("click", e => {
+            const [word, salt, scale] = wordSaltScale();
+            let locationHash = word + "," + hex2(Math.floor(256 * Math.random()));
+            if (scale) {
+                locationHash += "," + scale;
+            }
+            window.location.replace(window.location.pathname + "#" + locationHash);
+            e.preventDefault();
         });
 
         const instaCanvas = document.querySelector("#insta");
@@ -166,6 +176,15 @@
         let a = s * Math.min(l, 1 - l);
         let f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
         return [f(0), f(8), f(4)].map(v => Math.round(v * 255));
+    }
+
+    function wordSaltScale() {
+        let hash = location.hash;
+        if (hash && hash[0] == "#") {
+            hash = hash.slice(1);
+        }
+        const [word, salt, scale] = hash.split(",");
+        return [word || "insta", salt || undefined, parseInt(scale) || undefined];
     }
 
     main();
