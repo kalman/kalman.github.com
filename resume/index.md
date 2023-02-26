@@ -5,11 +5,11 @@
 * LinkedIn: [https://www.linkedin.com/in/btkalman/](https://www.linkedin.com/in/btkalman)
 * Based in Sydney, Australia
 
-Software engineer with 13 years experience in full stack web, desktop, and mobile application development.
+Software engineer with 14 years experience in full stack web, desktop, and mobile application development.
 
-**Languages:** TypeScript, JavaScript, Python, Go, C++, C#, C, Java.
+**Languages:** TypeScript, JavaScript, Python, Go, C#, C++, C, Java.
 
-**Skills:** Web, React, Node.js, AWS, React Native, GraphQL, Chrome Extensions, Unity, AppEngine, iOS, Windows.
+**Skills:** Web, React, Node.js (and its ecosystem), React Native, iOS, Unity, AWS, Windows.
 
 ## Employment
 
