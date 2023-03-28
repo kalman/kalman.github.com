@@ -5,11 +5,11 @@
 * LinkedIn: [https://www.linkedin.com/in/btkalman/](https://www.linkedin.com/in/btkalman)
 * Based in Sydney, Australia
 
-Software engineer with 14 years experience in full stack web, desktop, and mobile application development.
+Software developer with 14 years experience in full stack web, desktop, and mobile application development.
 
 **Languages:** TypeScript, JavaScript, Python, Go, C#, C++.
 
-**Skills:** Web + ecosystem, React, Node.js + ecosystem, Unity.
+**Skills:** Web + ecosystem, React, Node.js + ecosystem, full stack, Unity.
 
 ## Employment
 
@@ -50,7 +50,7 @@ At Google I spent 5 years working on Google Chrome, the desktop web browser used
 * Designed, implemented, and documented several fundamental APIs – for example [chrome.storage](https://developer.chrome.com/docs/extensions/reference/storage/) and [activeTab](https://developer.chrome.com/docs/extensions/mv3/manifest/activeTab/).
 * I am co-inventor of patent [US9535755B2](https://patents.google.com/patent/US9535755B2/en) based on the synchronisation feature of the chrome.storage API.
 
-My first year (2019) at Google was on Google Wave, the short-lived email competitor. I worked on features in the web frontend (Java / Google Web Toolkit) and backend (Java).
+My first year (2009) at Google was on Google Wave, the short-lived email competitor. I worked on features in the web frontend (Java / Google Web Toolkit) and backend (Java).
 
 ### NICTA &bull; ERTOS Research Associate &bull; 2009
 
