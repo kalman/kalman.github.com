@@ -19,9 +19,9 @@ _Dart, Python, TypeScript, React._
 
 [Neara](https://neara.com) is an platform that "creates 3D network-wide models that reflect and simulate how utility assets behave in their real-world environment". Currently I am working on the Dart frontend.
 
-- Designed and built Neara's internationalisation platform from the ground up, with Dart/TypeScript client libraries, Dart/TypeScript tools to extract content for localisation, and Python tools to integrate with a localisation service. Neara had effectively no localised content nor the ability to localise anything.
-- Designed and built seamless integration of TypeScript and React into Neara, which is written in Dart.
-- Bootstrapped and supervised the engineering side of a greenfield Neara product.
+- Designed and built Neara's internationalisation platform from the ground up, with Dart/TypeScript client libraries and tools to extract content for localisation, and a Python tool to integrate with a localisation service. Before this, Neara had effectively no localised content nor internationalisation support.
+- Designed and built integration of TypeScript and React into Neara's Dart application.
+- Bootstrapped and supervised the engineering side of a greenfield product.
 
 ### **Salesforce** &bull; Software Engineering Architect (Quip) &bull; 2018-2022
 
