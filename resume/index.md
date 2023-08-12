@@ -5,7 +5,7 @@
 - LinkedIn: [https://www.linkedin.com/in/btkalman/](https://www.linkedin.com/in/btkalman)
 - Based in Sydney, Australia
 
-Software developer with 14 years experience in full stack web, desktop, and mobile application development.
+Software developer with 14+ years experience in full stack web, desktop, and mobile application development.
 
 **Languages:** TypeScript, JavaScript, Python, Go, C#, C++.
 
@@ -15,13 +15,13 @@ Software developer with 14 years experience in full stack web, desktop, and mobi
 
 ### _Neara_ &bull; Senior Software Engineer &bull; 2023-current
 
-_TypeScript, Dart, Python, React._
+_Dart, Python, TypeScript, React._
 
-[Neara](https://neara.com) is an platform that "creates 3D network-wide models that reflect and simulate how utility assets behave in their real-world environment". Currently I am working on the frontend.
+[Neara](https://neara.com) is an platform that "creates 3D network-wide models that reflect and simulate how utility assets behave in their real-world environment". Currently I am working on the Dart frontend.
 
-- Designed and built Neara's internationalisation platform from the ground up, from Dart and TypeScript libraries and tools to extract content for localisation, through Python tools to integrate a localisation service. Neara had essentially zero localised content, nor the ability to localise anything.
-- Designed and built seamless integration of React and TypeScript into Neara's bespoke Dart application. There was no TypeScript or React in Neara, nor the ability to develop it.
-- Laid the groundwork for a greenfield Neara product written fully in React and TypeScript.
+- Designed and built Neara's internationalisation platform from the ground up, with Dart/TypeScript client libraries, Dart/TypeScript tools to extract content for localisation, and Python tools to integrate with a localisation service. Neara had effectively no localised content nor the ability to localise anything.
+- Designed and built seamless integration of TypeScript and React into Neara, which is written in Dart.
+- Bootstrapped and supervised the engineering side of a greenfield Neara product.
 
 ### **Salesforce** &bull; Software Engineering Architect (Quip) &bull; 2018-2022
 
