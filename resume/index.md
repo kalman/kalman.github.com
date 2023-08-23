@@ -13,14 +13,14 @@ Software developer with 14+ years experience in full stack web, desktop, and mob
 
 ## Employment
 
-### _Neara_ &bull; Senior Software Engineer &bull; 2023-current
+### _Neara_ &bull; Senior Software Engineer &bull; 2023
 
 _Dart, Python, TypeScript, React._
 
 [Neara](https://neara.com) is an platform that "creates 3D network-wide models that reflect and simulate how utility assets behave in their real-world environment". Currently I am working on the Dart frontend.
 
-- Designed and built Neara's internationalisation platform from the ground up, with Dart/TypeScript client libraries and tools to extract content for localisation, and a Python tool to integrate with a localisation service. Before this, Neara had effectively no localised content nor internationalisation support.
-- Designed and built integration of TypeScript and React into Neara's Dart application.
+- Designed and built Neara's internationalisation platform from the ground up, with Dart/TypeScript/Python libraries and tools to extract content for localisation and integrate with a localisation service. Before this, Neara had effectively no localised content nor i18n support.
+- Designed and built integration of TypeScript + React into Neara's Dart application.
 - Bootstrapped and supervised the engineering side of a greenfield product.
 
 ### **Salesforce** &bull; Software Engineering Architect (Quip) &bull; 2018-2022
