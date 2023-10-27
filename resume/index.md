@@ -13,7 +13,7 @@ Software developer with 14+ years experience in full stack web, desktop, and mob
 
 ## Employment
 
-### _Neara_ &bull; Senior Software Engineer &bull; 2023
+### Neara &bull; Senior Software Engineer &bull; 2023
 
 _Dart, Python, TypeScript, React._
 
