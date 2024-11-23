@@ -77,5 +77,6 @@ NICTA was Australia's IT research centre, later renamed Data61 and merged with C
 
 ## Other
 
-- Solo developer and publisher of [Jumpling](https://apps.apple.com/us/app/jumpling/id1499419588), an iOS jump-themed game developed in Unity. Current high score: 2,405.
-- Participated in 9 game jams both solo and in teams of 2-3 people, all in Unity. For example, my [Ludum Dare](https://ldjam.com/) submissions are [here](https://ldjam.com/events/ludum-dare/54/swarmed-in), [here](https://ldjam.com/events/ludum-dare/53/with-the-grain), [here](https://ldjam.com/events/ludum-dare/52/fruit-market-express), [here](https://ldjam.com/events/ludum-dare/49/dungeon-economy), [here](https://ldjam.com/events/ludum-dare/45/the-house-of-volans), and [here](https://ldjam.com/events/ludum-dare/50/delay-the-dragon). I also built [this](https://dodgeblan.itch.io/untitled-growth-game).
+- Solo developer and publisher of [Orbie is Lost in Space](https://apps.apple.com/au/app/orbie-is-lost-in-space/id6737959845), an iOS puzzle game.
+- Solo developer and publisher of [Jumpling](https://apps.apple.com/us/app/jumpling/id1499419588), an iOS infinite jump game.
+- Participated in 11+ game jams both solo and in teams of 2-3 people.
